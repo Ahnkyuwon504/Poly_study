@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="ImportExportAction">
+		<item key="ImportExportPage.STORE_SELECTED_EXPORT_WIZARD_ID" value="org.eclipse.ui.wizards.export.ZipFile"/>
+		<item key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID" value="org.eclipse.ui.wizards.import.ExternalProject"/>
+		<list key="ImportExportPage.STORE_EXPANDED_EXPORT_CATEGORIES">
+			<item value="org.eclipse.ui.Basic"/>
+			<item value="org.eclipse.jdt.ui.Java"/>
+		</list>
+		<list key="ImportExportPage.STORE_EXPANDED_IMPORT_CATEGORIES">
+			<item value="org.eclipse.ui.Basic"/>
+		</list>
+	</section>
+	<section name="ZipFileExportWizard">
+		<item key="WizardZipFileResourceExportPage1.STORE_CREATE_STRUCTURE_ID" value="true"/>
+		<item key="WizardZipFileResourceExportPage1.STORE_COMPRESS_CONTENTS_ID" value="true"/>
+		<list key="WizardZipFileResourceExportPage1.STORE_DESTINATION_NAMES_ID">
+			<item value="C:\Users\안규원\Desktop\amusement_park.zip"/>
+			<item value="C:\Users\안규원\Desktop\newprj_git\second_exchange_remark on.zip"/>
+			<item value="C:\Users\안규원\Desktop\java 김유두교수님\Amusement\amusement_Ticket_First.zip"/>
+			<item value="C:\Users\안규원\Desktop\java 김유두교수님\Exchange\exchange_Final.zip"/>
+			<item value="C:\Users\안규원\Desktop\java 김유두교수님\Exchange.zip"/>
+			<item value="C:\Users\안규원\Desktop\java 홍필두교수님\HW3\HW3.zip"/>
+			<item value="C:\Users\안규원\Desktop\이클립스작업이 저장됨\Get_Regression.zip"/>
+			<item value="C:\Users\안규원\Desktop\이클립스작업이 저장됨\First_prj_Regression.zip"/>
+			<item value="C:\Users\안규원\Desktop\이클립스작업이 저장됨\11Regression.zip"/>
+			<item value="C:\Users\안규원\Desktop\이클립스작업이 저장됨\Real_Final_Regression.zip"/>
+			<item value="C:\Users\안규원\Desktop\이클립스작업이 저장됨\Regression_Final.zip"/>
+			<item value="C:\Users\안규원\Desktop\이클립스작업이 저장됨\Regression.zip"/>
+			<item value="C:\Users\안규원\Desktop\이클립스작업이 저장됨\k20_Cal.zip"/>
+			<item value="C:\Users\안규원\Desktop\이클립스작업이 저장됨\0405 학생제출\prj0405 While Kyuwon.zip"/>
+			<item value="C:\Users\안규원\Desktop\이클립스작업이 저장됨\0402 Youtube.zip"/>
+			<item value="C:\Users\안규원\Desktop\이클립스저장폴더\0331.zip"/>
+			<item value="C:\Users\안규원\Desktop\이클립스저장폴더\YoutubeTTanggu.zip"/>
+			<item value="C:\Users\안규원\Desktop\이클립스저장폴더\Youtube.zip"/>
+			<item value="C:\Users\안규원\Desktop\이클립스저장폴더\오늘의영어단어.zip"/>
+			<item value="C:\Users\안규원\Desktop\필기\jkjk.zip"/>
+		</list>
+	</section>
+	<section name="ZipFileImportWizard">
+		<item key="WizardZipFileResourceImportPage1.STORE_OVERWRITE_EXISTING_RESOURCES_ID" value="false"/>
+		<list key="WizardZipFileResourceImportPage1.STORE_SOURCE_NAMES_ID">
+			<item value="C:\Users\안규원\Desktop\java 홍필두교수님\HW3\HW3.zip"/>
+			<item value="C:\Users\안규원\Downloads\Calculator.zip"/>
+			<item value="C:\Users\안규원\Downloads\Main.zip"/>
+			<item value="C:\Users\안규원\Downloads\download_2021-03-31_15-50-35.zip"/>
+			<item value="C:\Users\안규원\Downloads\11일코딩.zip"/>
+			<item value="C:\Users\안규원\Desktop\필기\20210309\first.zip"/>
+			<item value="C:\Users\안규원\Desktop\이클립스저장폴더\0304 어려운문제.zip"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.preferences.keysPreferencePage">
+	</section>
+</section>

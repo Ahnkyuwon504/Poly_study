@@ -1,0 +1,12 @@
+1618880235652	Delete element
+1618880796008	Delete element
+1618880806868	Delete element
+1618883440715	Rename field 'age'
+1618883458093	Rename field 'AGE'
+1618883470900	Rename field 'STRING_AGE'
+1618883507618	Rename field 'TREAT'
+1618883556147	Rename local variable 'age'
+1618883567594	Rename local variable 'age'
+1618883851787	Rename field 'CHARGE'
+1618884004343	Rename field 'DISCOUNT_TREAT'
+1618885029566	Rename local variable 'N'

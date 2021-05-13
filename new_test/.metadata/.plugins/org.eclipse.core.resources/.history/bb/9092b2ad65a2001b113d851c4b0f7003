@@ -1,0 +1,50 @@
+package amusement_DB;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import com.mysql.cj.protocol.Resultset;
+
+public class Sell_Analysis_Class {
+	private Connection con;
+	private Statement statement;
+	
+	public Sell_Analysis_Class() throws SQLException {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			con = DriverManager.getConnection(
+					"jdbc:mysql://127.0.0.1:3306/ahnkyuwon",
+					"root",
+					"dksrbdnjs");
+			statement = con.createStatement();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public ArrayList<ArrayList<String>> get_Data_FromDB() {
+		ArrayList<ArrayList<String>> doubleArray_data = null;
+		try {
+			ResultSet rset = statement.executeQuery("select * from report");
+			
+			while(rset.next()) {
+				ArrayList<String> singleArray_data = null;
+				for (int i = 1; i < rset.getFetchSize(); i++) {
+					singleArray_data.add(rset.getString(i));
+				}
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return doubleArray_data;
+	}
+
+}

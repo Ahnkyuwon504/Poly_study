@@ -1,0 +1,129 @@
+package study04121;
+
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+public class HW06 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		////////////////////////////////////////////////////////////////////////
+		// #6. 리포팅연습(영수증 출력 등) 6번 / 2021. 04. 12. / 2125341020 안규원
+		// 영수증 출력 3
+		////////////////////////////////////////////////////////////////////////
+		DecimalFormat k20_df = new DecimalFormat ("###,###,###,###,###"); // 쉼표로 나누기위해 import
+		Calendar k20_cal = Calendar.getInstance(); // Calendar import하여 현재시간 출력
+		SimpleDateFormat k20_sdt = new SimpleDateFormat ("YYYY/MM/dd HH:mm:ss"); // 현재시간 출력 포맷
+		// 구입한 상품의 이름을 저장하는 Array
+		String[] k20_name_Array = new String[] { // Array 선언하고 바로 원소를 넣어주었음.
+				"초코렛", "바     나나나나솨나", "건포도 황도도도도", "김 망고와오렌지",
+				"꽃보다남자 드라마", "홈런볼은 야구장에서", "*아이스커피한잔", "*꼬북칩누가먹어",
+				"몽쉘은 다들먹어분명","스윙스스러운 과자", "빈츠는 과자의황제","동원 반김치삼겹살찌개",
+				"마이 미는지역명","*왕꿈틀이안에킹왕","*미니쉘미니미니", "짱 셔요그치만더셔요",
+				"초비초 초해피빅초빅","다이소 다이제다그런거지","카라멜죽장사과 펀치","비빔 면먹고아이셔",
+	            "유기농 초코송이랍니다","계란 말이도나쁘지않지","계란 말이계란말이","에엥에 지징지지",
+	            "주니어양말 커피다오", "파이리 꼬리야돈의꼬리","도라에 꼬리몽은도라에몽","리자몽 꼬리도있나",
+	            "토게피 알주세요알","*카카오라고해짜나요", "자 바는최고의학문"};
+		// 구입한 상품이 영수증에 출력될 때 간격을 맞추기 위해, 글자를 자르거나 공백을 추가해준다.
+		for (int k20_i = 0; k20_i < k20_name_Array.length; k20_i++) { // 글자가 저장된 array의 크기만큼 for문 실시
+			if (k20_name_Array[k20_i].length() > 7) { // 15자 이상이면
+				k20_name_Array[k20_i] = k20_name_Array[k20_i].substring(0, 7); // 14자까지만 잘라준다.
+			}
+			
+			int k20_num = 14 - k20_name_Array[k20_i].getBytes().length; // 28간격보다 부족한 만큼의 숫자를 세고
+			System.out.println(k20_num);
+			for (int k20_j = 0; k20_j < k20_num; k20_j++) { // 그 숫자 num만큼 
+				k20_name_Array[k20_i] = k20_name_Array[k20_i] + "  "; // 간격을 추가해준다.
+			}
+		}
+		// 구입한 상품이 과세물품인지, 면세물품인지 boolean으로 표현하였음.
+		boolean[] k20_tax_Array = new boolean[] { // Array 선언 후 각 상품별 과세여부 모두 넣어주었음.
+				true, true, true, true, true, true, false, false, true, true,
+				true, true, true, false, false, true, true, true, true, true,
+				true, true, true, true, true, true, true, true, true, false, true};
+		// 구입한 상품의 개별 금액을 저장하는 Array
+		int[] k20_price_Array = new int[] { // Array 선언 후 각 상품별 금액을 모두 넣어주었음.
+				3000, 1000, 1000, 20000, 10000, 2500, 3000, 2200, 1800, 3800,
+				5200, 1800, 4000, 4400, 3800, 13200, 3800, 2700, 200, 300,
+				3400, 1800, 8800, 10000, 500, 4800, 800, 900, 1300, 200, 300};
+		// 구입한 상품의 개별 갯수를 저장하는 Array
+		int[] k20_how_Many_Array = new int[] { // Array 선언 후 각 상품별 갯수를 모두 넣어주었음.
+				1, 1, 1, 2, 5, 6, 7, 8, 1, 5,
+				13, 14, 5, 6, 3, 1, 3, 5, 10, 6,
+				8, 8, 6, 5, 8, 10, 12, 14, 60, 80, 5};
+		int[] k20_total_Price_Array = new int[k20_name_Array.length];
+		// 구입한 상품의 개수 * 구입한 상품의 금액을 다른 Array에 별도 부여
+		for (int i = 0; i < k20_total_Price_Array.length; i++) { // for문은 개수만큼 실시됨.
+			k20_total_Price_Array[i] = k20_price_Array[i] * k20_how_Many_Array[i]; // 각 for문마다 Array원소 넣음.
+		}
+		
+		int price_Of_Taxfree = 0; // 면세물품의 가격 총합
+		int price_Of_Tax = 0; // 과세물품의 가격 총합
+		for (int i = 0; i < k20_name_Array.length; i++) { // for문이 상품 가짓수만큼 실시되며
+			if (k20_tax_Array[i] == false) { // 만일 면세물품일 시,
+				price_Of_Taxfree += k20_price_Array[i] * k20_how_Many_Array[i]; // 면세물품의 가격총액이 더해짐.
+			} else { // 만일 과세물품일 시,
+				price_Of_Tax += k20_price_Array[i] * k20_how_Many_Array[i]; // 과세물품의 가격총액이 더해짐.
+			}
+		}
+		
+		double tax = 0.1; // 세율은 10%
+		int real_Price_Of_Tax = (int)(price_Of_Tax / (tax + 1)); // 과세물품의 원가를 저장하는 변수선언
+		int how_Much_Tax = (int)(price_Of_Tax * tax / (tax + 1)) + 1; // 과세물품의 
+		// 부가세를 저장하는 변수선언
+		int price_Of_Total = price_Of_Taxfree + price_Of_Tax; // 과세물품의 총액, 면세물품의 총액
+		// 모두 저장함. 즉 지불한 총액
+		System.out.printf("\n\n                 이마트 죽전점 (031)888-1234\n"); // 텍스트 출력
+		// 맨 앞에 두 줄 띄어 줌으로써 읽기 쉽도록.
+		System.out.printf("                 206-86-50913 강희석\n"); // 텍스트 출력
+		System.out.printf("                 용인 수지구 포은대로 552\n"); // 텍스트 출력
+		System.out.printf("영수증 미지참시 교환/환불 불가\n"); // 텍스트 출력
+		System.out.printf("정상상품에 한함, 30일 이내(신선 7일)\n"); // 텍스트 출력
+		System.out.printf("*일부 브랜드매장 제외(매장 고지물참조)\n"); // 텍스트 출력
+		System.out.printf("교환/환불 구매점에서 가능(결제카드 지참)\n\n"); // 텍스트 출력
+		System.out.printf("[구매]%s       POS:0011-9861\n", k20_sdt.format(k20_cal.getTime()));
+		// 현재시간 출력. 포맷형태는 k20_sdt 활용
+		System.out.printf("----------------------------------------------\n"); // 줄 출력. 이제 시작됨.
+		System.out.printf("  상품명                단 가    수량     금액\n"); // 상품명/단가/수량/금액
+		for (int i = 0; i < k20_name_Array.length; i++) { // 상품 가짓수만큼 for문이 실시됨.
+			System.out.printf("  %-14s%6s%8s%9s\n", // 각 상품별 출력문마다의 간격을 맞춰주기 위함이다.
+		// 또한 상품명이 길 경우 8칸으로 잘라버리기 위해 .8이 들어갔음.
+		// -14는 14칸 간격 설정 후 앞에서부터 왼쪽 정렬한다는 의미. 마이너스 없으면 오른쪽 정렬.
+					k20_name_Array[i], k20_df.format(k20_price_Array[i]), // 상품명, 가격 출력. 쉼표찍어줌.
+					k20_how_Many_Array[i], k20_df.format(k20_total_Price_Array[i])); // 수량, 총액 출력.
+			if (((i+1)%5) == 0) { // 상품이 5개씩 찍힐 때마다 점선을 출력하여 구분해줌.
+				System.out.printf("----------------------------------------------\n"); // 점선 출력
+			}
+		}
+		System.out.printf("\n"); // 줄 넘기고 다시 진행
+		System.out.printf("%25s%15d\n",  "총 품목 수량", k20_name_Array.length); // 총 품목 수량은 상품가짓수
+		System.out.printf("%26s%15s\n", "(*)면 세 물 품", k20_df.format(price_Of_Taxfree));
+		// 면세물품 : 면세상품의 총액 합계
+		System.out.printf("%26s%15s\n", "과 세 물 품", k20_df.format(real_Price_Of_Tax));
+		// 과세물품 : 과세상품의 원가 총액 합계
+		System.out.printf("%27s%15s\n", "부   가   세", k20_df.format(how_Much_Tax));
+		// 부가세 : 과세상품의 세금 합계
+		System.out.printf("%28s%15s\n", "합       계", k20_df.format(price_Of_Total));
+		// 합계 : 지불한 총액
+		System.out.printf("%s%29s\n", "결 제 대 상 금 액", k20_df.format(price_Of_Total));
+		// 결제대상금액 : 합계와 동일
+		System.out.printf("----------------------------------------------\n"); // 줄 출력
+		System.out.printf("0012 KEB 하나   %30s\n", "541707**0484/35860658"); // 텍스트 출력
+		System.out.printf("카드결제(IC) %23s%s\n", "일시불 / ", k20_df.format(price_Of_Total)); // 텍스트 출력
+		System.out.printf("----------------------------------------------\n"); // 줄 출력
+		System.out.printf("              [신세계포인트 적립]\n"); // 텍스트 출력
+		System.out.printf("홍*두 고객님의 포인트 현황입니다.\n"); // 텍스트 출력
+		System.out.printf("금회발생포인트           9350**9995        164\n"); // 텍스트 출력
+		System.out.printf("누계(가용)포인트              5,637(    5,473)\n"); // 텍스트 출력
+		System.out.printf("*신세계포인트 유효기간은 2년입니다.\n"); // 텍스트 출력
+		System.out.printf("----------------------------------------------\n"); // 줄 출력
+		System.out.printf("        구매금액기준 무료주차시간 자동부여\n"); // 텍스트 출력
+		System.out.printf("차량번호 : %34s\n", "34저****"); // 텍스트 출력
+		System.out.printf("입차시간 : %35s\n", k20_sdt.format(k20_cal.getTime())); // 현재시간 출력
+		System.out.printf("----------------------------------------------\n"); // 줄 출력
+		System.out.printf("캐셔:084599 양00 %29s", "1150\n"); // 텍스트 출력
+		System.out.printf("    lliliililililillilililiililiilililili\n"); // 바코드 출력
+		System.out.printf("        20210303/00119861/00164980/31\n"); // 영수증 마무리
+	}
+}

@@ -1,0 +1,40 @@
+package amusement_DB;
+
+import java.sql.SQLException;
+
+public class Main_Class {
+
+	public static void main(String[] args) throws SQLException {
+		Sell_Analysis_Class saClass = new Sell_Analysis_Class();
+		
+		
+		System.out.println(saClass.get_Data_FromDB().get(0).get(0));
+		System.out.println(saClass.getData_DayNight_Age());
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/*
+		
+		
+		System.out.println((String)saClass.get_Data_FromDB().get(0).get(0));
+		System.out.println(saClass.get_Data_FromDB().get(0).get(1));
+		System.out.println(saClass.get_Data_FromDB().get(0).get(2));
+		System.out.println(saClass.get_Data_FromDB().get(0).get(3));
+		System.out.println(saClass.get_Data_FromDB().size());
+		*/
+	}
+
+}

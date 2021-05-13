@@ -1,0 +1,745 @@
+package softwarecoding8;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+
+public class P1 {
+	///////////////////////////////////////////////////////////////////////
+	// 소프트웨어코딩 8강. File
+	// 1. 무식하게 읽고 쓰기
+	// 2125341020 안규원
+	///////////////////////////////////////////////////////////////////////
+	public static void main(String[] args) {
+		try { // try, catch 문으로 오류 발생하면 잡기
+			File k20_f = new File("C:\\Users\\user\\Desktop\\Mytest.txt");
+			// File 객체생성, 경로는 직접 찾아서 붙여넣기
+			FileWriter k20_fw = new FileWriter(k20_f);
+			// FileWriter 객체생성
+			FileReader k20_fr = new FileReader(k20_f);
+			// FileReader 객체생성
+			k20_fw.write("안녕 파일\n"); // 안녕 파일이라는 String을 파일에 write
+			k20_fw.write("hello 헬로\n"); // hello 헬로라는 String을 파일에 write
+			k20_fw.close(); // 입력 후 반드시 close해야 함!
+			
+			int k20_n = -1; // -1로 초기화. 추후 -1이되면 읽어오는 반복문 break
+			char [] k20_ch; // 읽어온 data를 담을 char Array 그릇
+			
+			while(true) {  // 반복문은 break조건이 성립될때까지 반복된다.
+				k20_ch = new char[100]; // char Array 그릇의 크기를 100으로 지정
+				k20_n = k20_fr.read(k20_ch); // 그 그릇에 읽어온 data를 담는다
+				
+				if (k20_n == -1) break; // 한번 읽은 후, 읽어올 게 없으면 -1이 되어
+				// break된다. 이 조건이 없으면 프로그램이 끝나지 않는다.
+				for (int k20_i = 0; k20_i < k20_n; k20_i++) {
+				// for (char c : ch) {
+				// 가져온 data를 담은 k20_n의 크기만큼 for문 실시
+					System.out.printf("%c", k20_ch[k20_i]);
+				} // for문을 돌리면서 char을 출력한다.
+			}
+			// 출력 종료 후 반드시 close 해야함! write와 마찬가지.
+			k20_fr.close();
+			// 파일 출력이 종료되었음은 while의 종료와 같다. 이 시점을 알려주는
+			// END문장 출력
+			System.out.printf("\n FILE READ END!");
+		} catch (Exception k20_e) { // 만일 에러 발생시
+			System.out.printf("나 에러[%s]\n", k20_e); // 에러 문구를 출력하여
+			// 대비할 수 있도록 한다.
+		}
+	}
+}
+
+
+
+
+
+package softwarecoding8;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class P2 {
+	///////////////////////////////////////////////////////////////////////
+	// 소프트웨어코딩 8강. File
+	// 2. Buffered 읽고 쓰기
+	// 2125341020 안규원
+	///////////////////////////////////////////////////////////////////////
+	public static void k20_FileWrite() throws IOException {
+		File k20_f = new File("C:\\Users\\user\\Desktop\\Mytest2.txt");
+		// 아까는 char Array를 생성하여 거기에 담은 후 읽었지만,
+		// 이번에는 버퍼를 가지고 읽을 것이다.
+		BufferedWriter k20_bw = new BufferedWriter(new FileWriter(k20_f));
+		// 몇 바이트인진 상관없이 버퍼가 알아서 읽어줄 것이다.
+		k20_bw.write("안녕 파일"); // 안녕 파일이라는 String 입력
+		k20_bw.newLine();		   // 새로운 라인을 찾아주고
+		k20_bw.write("hello 헬로");// 다시 hello 헬로라는 String 입력
+		k20_bw.newLine();		   // 또다시 새로운 라인을 찾아준다.
+		
+		k20_bw.close();	// 마찬가지로, 입력활동이 끝나면
+		// 반드시 close를 해야함. close 안하면 계속 파일이 열려 있기 때문에
+		// 제어할 수가 없고 프로그램에도 좋지 않음. 습관화 하자...
+	}
+	
+	public static void k20_FileRead() throws IOException {
+		File k20_f = new File("C:\\Users\\user\\Desktop\\Mytest2.txt");
+		// 마찬가지로 버퍼를 사용할 것임.
+		BufferedReader k20_br = new BufferedReader(new FileReader(k20_f));
+		// 파일을 읽기 전에 String을 선언해줌.
+		String k20_readtxt; // 이 String에 버퍼에서 읽어오는 data를 
+		// 한 줄 한 줄 담을 것임.
+		while((k20_readtxt = k20_br.readLine()) != null) {
+		// data를 읽어오는 조건문은 더이상 읽을 줄이 없어서
+		// String의 값이 null이 될 때까지 실시될 것임.
+			System.out.printf("%s\n", k20_readtxt);
+		// 한 줄 한 줄 읽을 때마다 바로 출력
+		}
+		k20_br.close();
+		// 역시 출력활동이 끝나면 반드시 close.
+	}
+
+	public static void main(String[] args) throws IOException {
+		k20_FileWrite(); // 앞전에 만든 Write기능의 메소드 호출.
+		// static이기 때문에 별도의 객체 생성 없이 호출 가능
+		k20_FileRead(); // 앞전에 만든 Read기능의 메소드 호출.
+		// static이기 때문에 별도의 객체 생성 없이 호출 가능
+	}
+}
+
+
+
+package softwarecoding8;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class P3 {
+	///////////////////////////////////////////////////////////////////////
+	// 소프트웨어코딩 8강. File
+	// 3. 실제 파일에 응용
+	// 2125341020 안규원
+	///////////////////////////////////////////////////////////////////////
+	public static void main(String[] args) throws IOException {
+		// 마찬가지로 읽어올 파일의 경로 입력
+		File k20_f = new File("E:\\Download\\새 폴더 (2)\\무료와이파이정보.csv");
+		// 버퍼리더로 읽어올 것임.
+		BufferedReader k20_br = new BufferedReader(new FileReader(k20_f));
+		// 읽어올 String을 담을 k20_readtxt 선언
+		String k20_readtxt;
+		// 첫 번째 라인을 읽어와서 k20_readtxt에 담을 것임.
+		// 버퍼리더의 원리는, readLine을 읽어올 때마다 저절로 다음 줄로 넘어감.
+		// 따라서 이번 if문이 시행되면, 다음 readLine 메소드는 두 번째 줄을 읽어옴.
+		if ((k20_readtxt = k20_br.readLine()) == null) {
+			// 혹시 첫 번째 줄이 내용이 없을 때를 대비한 if문
+			System.out.printf("빈 파일입니다.\n");
+			// 빈 파일이라고 알려줄 것임.
+			return; // 그러고 if문 종료
+		}
+		// 무료와이파이정보의 첫 번째 줄은 데이터의 field명을 나타내고 있음.
+		// 따라서 그것을 콤마로 split한 후, k20_field_name String Array에
+		// 넣어줄 것임.
+		String[] k20_field_name = k20_readtxt.split(",");
+		// LineCnt인 Integer 생성. 우리는 100번째 줄까지만 출력할 것이라서..
+		// 후에 이 Integer을 늘리고, break의 조건으로 써먹을 것임.
+		int k20_LineCnt = 0;
+		// 데이터를 읽어올 때의 조건문은 거의 동일하다.
+		// 다음 읽어온 줄이 비어 있으면 그만 읽는 원리!
+		while((k20_readtxt = k20_br.readLine()) != null) {
+			// 마찬가지로, 한 줄 한 줄 읽을 때마다 콤마로 쪼개서 String Array에
+			// 값을 넣어준다.
+			String[] k20_field = k20_readtxt.split(",");
+			// 각 줄마다 구분되도록 해줄 줄 출력
+			System.out.printf("**[%d번째 항목]***************\n", k20_LineCnt);
+			// 몇 번째 항목인지 표시해줄 것임.
+			for (int k20_j = 0; k20_j < k20_field_name.length; k20_j++) {
+				// 아까 생성한 field_name을 지금 써먹는다.
+				System.out.printf(" %s : %s\n", k20_field_name[k20_j], k20_field[k20_j]);
+			}
+			// 각 줄의 출력이 종료됨을 알 수 있도록 줄 출력
+			System.out.printf("*******************************\n");
+			// 우리는 100번째 까지만 궁금하므로..break
+			if (k20_LineCnt == 100) break;
+			// 한 줄 읽어올 때마다 LineCnt를 올려줌.
+			k20_LineCnt++;
+		}
+		// 모든 출력이 종료되면, 반드시 close 해줄 것!
+		k20_br.close();
+	}
+}
+
+
+
+
+
+package softwarecoding8;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
+
+public class P4 {
+	///////////////////////////////////////////////////////////////////////
+	// 소프트웨어코딩 8강. File
+	// 4. 거리계산
+	// 2125341020 안규원
+	///////////////////////////////////////////////////////////////////////
+	public static void main(String[] args) throws IOException, CsvValidationException, NumberFormatException {
+		// 마찬가지로 파일의 경로 입력해줌
+		File k20_f = new File("C:\\Users\\user\\Desktop\\java 홍필두교수님\\HW\\8\\전국무료와이파이표준데이터.txt");
+		// 버퍼리더를 사용할 것이기 때문에, 객체 생성
+		BufferedReader k20_br = new BufferedReader (new FileReader(k20_f));
+		// 읽어온 데이터를 담을 String 선언
+		String k20_readtxt;
+		// 마찬가지로, 데이터를 읽어올 때의 조건문임.
+		// 지금은 if문으로 단 한번 실시되기 때문에, 첫 번째 줄에 대해서만 해당됨.
+		if ((k20_readtxt = k20_br.readLine()) == null) {
+			// 첫 번째 줄이 비어있으면 빈 파일이라고 알려주도록 함.
+			System.out.printf("빈 파일입니다.\n");
+			// 조건문 빠져나옴.
+			return;
+		}
+		// 무료와이파이 데이터의 첫 번째 줄에서
+		// 데이터가 무엇으로 분류되었는지 이름을 가져올 것임.
+		// 또한 이 데이터가 굉장히 이상하기 때문에,
+		// 탭으로 분리되는 txt파일로 저장하여 가져왔음. 따라서 \t으로 split함.
+		String[] k20_field_name = k20_readtxt.split("\t");
+		// 융기원의 위도
+		double k20_lat = 37.3860521;
+		// 융기원의 경도
+		double k20_lng = 127.1214038;
+		// 융기원의 위도경도를 활용하여 전국무료와이파이 제공 장소 중
+		// 어느 곳이 거리가 가장 가까운지 확인 가능.
+		// 정확한 거리는 아니지만, 위경도 차이의 피타고라스 합을 비교함으로써
+		// 가까운지 먼지는 비교할 수 있음.
+		int k20_LineCnt = 0; // 이 Integer을 이용해 몇 번째 항목인지 표시할 것임
+		while ((k20_readtxt = k20_br.readLine()) != null) {
+			// 데이터를 읽어올 때 한 줄씩 읽어올 것임.
+			// 마찬가지로 \t으로 쪼개줌. 3번 실습과 다르다!
+			String[] k20_field = k20_readtxt.split("\t");
+			// 몇 번째 항목인지 표시하는 줄
+			System.out.printf("**[%d번째 항목]***************\n", k20_LineCnt);
+			// 소재지 지번 주소와 그 세부내용을 표시
+			System.out.printf(" %s : %s\n", k20_field_name[9], k20_field[9]);
+			// 소재지의 위도를 표시
+			System.out.printf(" %s : %s\n", k20_field_name[12], k20_field[12]);
+			// 소재지의 경도를 표시
+			System.out.printf(" %s : %s\n", k20_field_name[13], k20_field[13]);
+			// 이제 아까의 융기원 위도경도를 활용하여 거리를 계산할 것임.
+			// k20_dist는 피타고라스 정리를 활용한 위도경도 차이임.
+			double k20_dist = Math.sqrt( Math.pow( Double.parseDouble(k20_field[12]) - k20_lat, 2)
+					+ Math.pow( Double.parseDouble(k20_field[13]) - k20_lng, 2));
+			// 현재지점과의 거리를 각 데이터마다 표시
+			System.out.printf(" 현재지점과 거리 : %f\n", k20_dist);
+			// 한 줄이 종료되었음을 알려주는 줄 표시
+			System.out.printf("*****************************\n");
+			// 한 줄 읽어올 때마다 Cnt 상승
+			k20_LineCnt++;
+		}
+		// 마찬가지로 작업종료시 close하는 습관 들이기
+		k20_br.close();
+	}
+}
+
+
+
+
+
+
+package softwarecoding8;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class P5 {
+	///////////////////////////////////////////////////////////////////////
+	// 소프트웨어코딩 8강. File
+	// 5. 파일 훑어보고 감잡기
+	// 2125341020 안규원
+	///////////////////////////////////////////////////////////////////////
+	public static void main(String[] args) throws IOException {
+		// 마찬가지로 파일 경로 지정
+		File k20_f = new File("E:\\Download\\새 폴더 (2)\\day_data\\THTSKS010H00.dat");
+		// 버퍼리더를 사용할 것임.
+		BufferedReader k20_br = new BufferedReader (new FileReader(k20_f));
+		// 읽어온 데이터를 저장할 String 선언
+		String k20_readtxt;
+		// 한 줄 한 줄 읽어올 때마다 LineCnt 상승됨
+		int k20_LineCnt = 0;
+		// k20_n은 읽어온 데이터의 String size 저장.
+		// 읽어온 데이터가 없다면, 그 값이 -1이 되어 break조건 충족됨.
+		int k20_n = -1;
+		// 읽어온 데이터를 담을 StringBuffer 선언 및 생성
+		StringBuffer k20_s = new StringBuffer();
+		while(true) { // break조건 만족시까지 무한 반복
+			// 담을 크기가 1000 size의 char Array
+			char[] k20_ch = new char[1000];
+			// 읽어온 데이터가 없으면 break됨
+			k20_n = k20_br.read(k20_ch);
+			// 읽어온 데이터가 없으면 k20_n이 -1이 되어 break됨
+			if(k20_n == -1) break;
+			// 읽어온 k20_ch는 char Array이기 때문에 
+			// 그 개별 char을 생성하면서 for문 실시
+			for (char k20_c : k20_ch) { // for문은 k20_ch에 있는 char 개수만큼 실시
+				// 줄넘김을 만나게 된다면,
+				// 즉 한 데이터가 끝난다면
+				if (k20_c == '\n') {
+					// *** 표시
+					System.out.printf("[%s]***\n", k20_s.toString());
+					// 한 줄이 끝났으므로 delete
+					k20_s.delete(0, k20_s.length());
+					// 끝나기 전까지는 계속 append해줌. 최종 한줄이 끝날 때 
+					// 완성된 k20_s가 출력될것임
+				} else {
+					k20_s.append(k20_c);
+				}
+			}
+			// 한 줄 할 때마다 Cnt 상승
+			k20_LineCnt++;
+		}
+		System.out.printf("[%s]***\n", k20_s.toString());
+		// 마찬가지로 종료시 close!!
+		k20_br.close();
+	}
+}
+
+
+
+
+
+
+
+
+package softwarecoding8;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class P6 {
+	///////////////////////////////////////////////////////////////////////
+	// 소프트웨어코딩 8강. File
+	// 6. 감 잡은 내용으로 파일정제
+	// 2125341020 안규원
+	///////////////////////////////////////////////////////////////////////
+ 	public static void main(String[] args) throws IOException {
+ 		// 마찬가지로 파일의 경로 지정, 데이터를 읽어올 파일임.
+		File k20_f = new File("E:\\Download\\새 폴더 (2)\\day_data\\THTSKS010H00.dat");
+		// 버퍼리더를 사용할 것임.
+		BufferedReader k20_br = new BufferedReader (new FileReader(k20_f));
+		// 마찬가지로 파일의 경로 지정, 새로 입력할 파일임. 
+		File k20_f1 = new File("E:\\Download\\새 폴더 (2)\\day_data\\StockDailyPrice.csv");
+		// 버퍼라이터를 사용할 것임.
+		BufferedWriter k20_bw1 = new BufferedWriter (new FileWriter(k20_f1));
+		// 읽어올 때 사용할 k20_readtxt String 선언
+		String k20_readtxt;
+		// 두 개의 Integer 생성
+		// k20_cnt는 읽어올 파일의 데이터 갯수
+		// k20_wcnt는 새로 입력할 파일의 데이터 갯수
+		int k20_cnt = 0; int k20_wcnt = 0;
+		// 마찬가지로 데이터 읽어올 때의 조건문
+		while ((k20_readtxt = k20_br.readLine()) != null) {
+			// 한 줄 읽을 때마다 내용을 담아줄 StringBuffer 생성
+			StringBuffer k20_s = new StringBuffer();
+			// 구분자를 %_%로 잡고 split하여 k20_field String Array에 담아줌.
+			String[] k20_field = k20_readtxt.split("%_%");
+			// 1조건 : 구분자를 매개로 split된 각 String들의 크기가 2보다 크다.
+			// 2조건 : 각 필드에서 ^를 날리고 앞뒤 공백을 제거한 후 첫글자가 A랑 같은 경우
+			// 이 때, trim()메소드는 문자열의 앞뒤 공백을 날려버리는 역할을 한다.
+			if (k20_field.length > 2 && k20_field[2].replace("^", "").
+					trim().substring(0,1).equals("A")) {
+				// k20_s에 추가해준다. 
+				// 뭘 추가하냐면, 0번째 필드에서 ^를 날리고 앞뒤 공백을 날려준 결과를.
+				k20_s.append(k20_field[0].replace("^", "").trim());
+				// 이후 1번째부터 마지막 필드까지
+				for (int j = 1; j < k20_field.length; j++) {
+				// 쉼표 + 그 필드에서 ^를 날린 결과를 추가해준다.
+				// 이 때도 당연히 trim하여 앞뒤 공백 날려주었음.
+					k20_s.append("," + k20_field[j].replace("^", "").trim());
+				}
+				// 이제 k20_s가 완성되었다! 이것을 bw1 객체를 통해 write한다.
+				k20_bw1.write(k20_s.toString());k20_bw1.newLine();
+				// write 할때마다 write count 상승
+				k20_wcnt++;
+			}
+			// 읽어올 때마다 count 상승
+			// count와 write count는 다르다. 당연히 조건을 걸어서 
+			// 그 때마다 write해주었기 때문이다...
+			k20_cnt++;
+		}
+		// 작업 종료 후 읽어온 파일과 입력한 파일 모두 close한다.
+		k20_br.close();
+		k20_bw1.close();
+		// 작업 종료 후 읽어온 파일의 행 개수, 입력한 파일의 행 개수 출력
+		System.out.printf("Program End[%d][%d]records\n", k20_cnt, k20_wcnt);
+	}
+}
+
+
+
+
+
+
+
+package softwarecoding8;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class P7_MakeSamSung_CSV {
+	///////////////////////////////////////////////////////////////////////
+	// 소프트웨어코딩 8강. File
+	// 7. 스스로 실습 / 삼성전자 파일 만들기
+	// 2125341020 안규원
+	///////////////////////////////////////////////////////////////////////
+	public static void main(String[] args) throws IOException  {
+		// 파일 읽어올 경로 지정
+		File k20_f = new File("E:\\Download\\새 폴더 (2)\\day_data\\StockDailyPrice.csv");
+		// 버퍼리더 객체 생성
+		BufferedReader k20_br = new BufferedReader (new FileReader(k20_f));
+		// 파일 입력할 경로 지정
+		File k20_f1 = new File("E:\\Download\\새 폴더 (2)\\day_data\\A005930.csv");
+		// 버퍼라이터 객체 생성
+		BufferedWriter k20_bw1 = new BufferedWriter (new FileWriter(k20_f1));
+		// 읽어온 데이터를 담을 String 선언
+		String k20_readtxt;
+		// 데이터를 얼마나 입력했는지 나타낼 Integer 초기화. 현재값은 당연히 0
+		int k20_cnt = 0;
+		// 데이터를 읽어올 때의 조건문. 원리 숙지할 것!
+		while ((k20_readtxt = k20_br.readLine()) != null) {
+			// 읽어온 데이터를 콤마로 쪼갤 것임.
+			// 이것은 앞에서 콤마 기준 csv파일을 만들어 주었으므로 가능한 것
+			String[] k20_field = k20_readtxt.split(",");
+			// 조건문. 삼성전자의 코드값에 해당할 때만 실시됨.
+			if (k20_field[2].equals("A005930")) {
+				// 조건을 만족할 때마다 bw1 객체를 매개로 데이터 입력
+				// newLine을 통해 그 다음 줄로 이동하여 입력하도록 함.
+				k20_bw1.write(k20_readtxt); k20_bw1.newLine();
+			}
+			// 한 줄 입력시마다 cnt 상승.
+			// 몇 줄 입력했는지 이 Integer을 통해 확인 가능
+			k20_cnt++;
+		}
+		// 작업 종료시 close하는 습관
+		k20_br.close();
+		k20_bw1.close();
+		// 작업 종료시 몇 줄을 읽었는지 확인하는 요도
+		System.out.printf("Program End[%d]records\n", k20_cnt);
+	}
+}
+
+
+
+
+
+package softwarecoding8;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class P8_MakeDay_CSV {
+	///////////////////////////////////////////////////////////////////////
+	// 소프트웨어코딩 8강. File
+	// 7. 스스로 실습 / 19951124의 모든 종목 파일 만들기
+	// 2125341020 안규원
+	///////////////////////////////////////////////////////////////////////
+	public static void main(String[] args) throws IOException {
+		// 읽어올 파일의 경로 지정
+		File k20_f = new File("E:\\Download\\새 폴더 (2)\\day_data\\StockDailyPrice.csv");
+		// 버퍼리더 객체 생성
+		BufferedReader k20_br = new BufferedReader (new FileReader(k20_f));
+		// 입력할 파일의 경로 지정
+		File k20_f1 = new File("E:\\Download\\새 폴더 (2)\\day_data\\19951124.csv");
+		// 버퍼라이터 객체 생성
+		BufferedWriter k20_bw1 = new BufferedWriter (new FileWriter(k20_f1));
+		// 읽어올 데이터를 한 줄 한 줄 담을 String 선언
+		String k20_readtxt;
+		// 입력할 데이터를 몇 줄 입력할지 확인할 Integer 생성, 현재 당연히 0
+		int k20_cnt = 0;
+		// 데이터 읽어올 조건문 생성
+		while ((k20_readtxt = k20_br.readLine()) != null) {
+			// 마찬가지로 콤마 기준으로 쪼개서 String Array에 넣어줌
+			String[] k20_field = k20_readtxt.split(",");
+			// 1995년 11월 24일에 해당하는 모든 종목을 가져오기 위해
+			// 조건문 부여
+			// 이건 내 생일임.
+			if (k20_field[1].equals("19951124")) {
+				// 데이터 입력. 입력 후 다음 라인으로 토스
+				k20_bw1.write(k20_readtxt); k20_bw1.newLine();
+			}
+			// 한 줄 읽어올 때마다 카운트 상승
+			k20_cnt++;
+		}
+		// 작업 종료시 close
+		k20_br.close();
+		k20_bw1.close();
+		// 작업 종료시 몇 줄 읽었는지 확인
+		System.out.printf("Program End[%d]records\n", k20_cnt);
+	}
+}
+
+
+
+
+
+package softwarecoding8;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class P9_GetMaxMin {
+	///////////////////////////////////////////////////////////////////////
+	// 소프트웨어코딩 8강. File
+	// 7. 스스로 실습 / 삼성전자 2015년 종가의 최대값, 최소값
+	// 2125341020 안규원
+	///////////////////////////////////////////////////////////////////////
+	public static void main(String[] args) throws IOException {
+		// 데이터 읽어올 경로 지정
+		File k20_f = new File("E:\\Download\\새 폴더 (2)\\day_data\\StockDailyPrice.csv");
+		// 버퍼리더 객체 생성
+		BufferedReader k20_br = new BufferedReader(new FileReader(k20_f));
+		// 데이터 읽어와서 담을 String 선언
+		String k20_readtxt;
+		// Maximum이 될 Integer
+		// 초기화 시에는 Integer의 최솟값 부여. 0보다 이게 안전하다.
+		int k20_Max_2015_closing = Integer.MIN_VALUE;
+		// Minimum이 될 Integer
+		// 초기화 시에는 Integer의 최댓값 부여. 0보다 이게 안전하다.
+		int k20_Min_2015_closing = Integer.MAX_VALUE;
+		// 데이터 읽어올 조건문
+		while ((k20_readtxt = k20_br.readLine()) != null) {
+			// 마찬가지로 콤마로 쪼개줌
+			String[] k20_field = k20_readtxt.split(",");
+			// 만일 2015년에 해당하고, 삼성전자의 코드와 같다면
+			if (k20_field[1].contains("2015") && k20_field[2].equals("A005930")) {
+				// Maximum값을 초기화해줄 조건문
+				if (Integer.parseInt(k20_field[3]) > k20_Max_2015_closing) {
+					// 해당 필드값을 Max에 초기화
+					k20_Max_2015_closing = Integer.parseInt(k20_field[3]);
+				}
+				// Minimum값을 초기화해줄 조건문
+				if (Integer.parseInt(k20_field[3]) < k20_Min_2015_closing) {
+					// 해당 필드값을 Min에 초기화
+					k20_Min_2015_closing = Integer.parseInt(k20_field[3]);
+				}
+			}
+		}
+		// 작업 종료 후 close
+		k20_br.close();
+		// Max와 Min값 확인
+		System.out.printf("Max : %d\nMin : %d\n", k20_Max_2015_closing, k20_Min_2015_closing);
+	}
+}
+
+
+
+
+
+
+package softwarecoding8;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
+
+public class P10_Where_CloseOrFar {
+	///////////////////////////////////////////////////////////////////////
+	// 소프트웨어코딩 8강. File
+	// 4. 스스로 실습 / 융기원에서 가장 가까운 곳, 먼 곳 찾아 인쇄
+	// 2125341020 안규원
+	///////////////////////////////////////////////////////////////////////
+	public static void main(String[] args) throws IOException, CsvValidationException, NumberFormatException {
+		// 마찬가지로 파일의 경로 입력해줌
+		File k20_f = new File("C:\\Users\\user\\Desktop\\java 홍필두교수님\\HW\\8\\전국무료와이파이표준데이터.txt");
+		// 버퍼리더를 사용할 것이기 때문에, 객체 생성
+		BufferedReader k20_br = new BufferedReader (new FileReader(k20_f));
+		// 읽어온 데이터를 담을 String 선언
+		String k20_readtxt;
+		// 융기원의 위도
+		double k20_lat = 37.3860521;
+		// 융기원의 경도
+		double k20_lng = 127.1214038;
+		// 융기원의 위도경도를 활용하여 전국무료와이파이 제공 장소 중
+		// 어느 곳이 거리가 가장 가까운지 확인 가능.
+		// 정확한 거리는 아니지만, 위경도 차이의 피타고라스 합을 비교함으로써
+		// 가까운지 먼지는 비교할 수 있음.
+		
+		// 가까운 곳의 거리를 저장할 double
+		double k20_closeWIFI = Double.MAX_VALUE;
+		// 먼 곳의 거리를 저장할 double
+		double k20_farWIFI = Double.MIN_NORMAL;
+		
+		// 가까운 곳의 거리명을 저장할 String
+		String k20_closeWIFI_location = "";
+		// 먼 곳의 거리명을 저장할 String
+		String k20_farWIFI_location = "";
+		
+		while ((k20_readtxt = k20_br.readLine()) != null) {
+			// 데이터를 읽어올 때 한 줄씩 읽어올 것임.
+			// 마찬가지로 \t으로 쪼개줌.
+			String[] k20_field = k20_readtxt.split("\t");
+			// 이제 아까의 융기원 위도경도를 활용하여 거리를 계산할 것임.
+			// k20_dist는 피타고라스 정리를 활용한 위도경도 차이임.
+			try {
+				// try catch를 사용해 오류가 발생하더라도 continue 하도록 처리
+				// 대형 데이터 특성상 일일히 수정할 수가 없음.
+				// 위도경도로 거리 계산
+				double k20_dist = Math.sqrt( Math.pow( Double.parseDouble(k20_field[12]) - k20_lat, 2)
+						+ Math.pow( Double.parseDouble(k20_field[13]) - k20_lng, 2));
+				// 만일 계산된 거리가 크다면, 먼 거리에 저장할 것임. 조건 부여
+				if (k20_dist > k20_farWIFI) {
+					// farWIFI 거리 초기화
+					k20_farWIFI = k20_dist;
+					// farWIFI 거리명 초기화
+					k20_farWIFI_location = k20_field[9];
+				} 
+				// 만일 계산된 거리가 작다면, 가까운 거리에 저장할 것임. 조건 부여
+				if (k20_dist < k20_closeWIFI) {
+					// closeWIFI 거리 초기화
+					k20_closeWIFI = k20_dist;
+					// closeWIFI 거리명 초기화
+					k20_closeWIFI_location = k20_field[8];
+				}
+				// 공백이거나 String이어서 double계산이 안되는 오류가 발생하였으므로,
+				// 오류 발생시 continue
+			} catch (NumberFormatException k20_e) {
+				continue;
+			}
+			  catch (Exception k20_e) {
+			}
+		}
+		// 마찬가지로 작업종료시 close하는 습관 들이기
+		k20_br.close();
+		// 가장 가까운 곳 출력
+		System.out.printf("가장 가까운 곳 : %s , 현재지점과 거리 : %f\n",
+						   k20_closeWIFI_location, k20_closeWIFI);
+		// 가장 먼 곳 출력
+		System.out.printf("가장   먼   곳 : %s , 현재지점과 거리 : %f\n",
+						   k20_farWIFI_location, k20_farWIFI);
+	}
+}
+
+
+
+
+
+package softwarecoding8;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class P11_Where_CloseOrFar_Parking {
+	///////////////////////////////////////////////////////////////////////
+	// 소프트웨어코딩 8강. File
+	// 4. 스스로 실습 / 특정지점과 가장 가까운 주자창/먼 주차장 찾아 인쇄
+	// 2125341020 안규원
+	///////////////////////////////////////////////////////////////////////
+	public static void main(String[] args) throws IOException {
+		// 마찬가지로 파일의 경로 입력해줌
+		File k20_f = new File("E:\\Download\\새 폴더 (2)\\전국주차장정보.csv");
+		// 버퍼리더를 사용할 것이기 때문에, 객체 생성
+		BufferedReader k20_br = new BufferedReader (new FileReader(k20_f));
+		// 읽어온 데이터를 담을 String 선언
+		String k20_readtxt;
+		// 융기원의 위도
+		double k20_lat = 37.3860521;
+		// 융기원의 경도
+		double k20_lng = 127.1214038;
+		// 가까운 곳의 거리를 저장할 double
+		double closePARK = Double.MAX_VALUE;
+		// 먼 곳의 거리를 저장할 double
+		double farPARK = Double.MIN_NORMAL;
+		// 가까운 곳의 거리명을 저장할 String
+		String closePARK_location = "";
+		// 먼 곳의 거리명을 저장할 String
+		String farPARK_location = "";
+		
+		while ((k20_readtxt = k20_br.readLine()) != null) {
+			// 데이터를 읽어올 때 한 줄씩 읽어올 것임.
+			String[] k20_field = k20_readtxt.split(",");
+			// 이제 아까의 융기원 위도경도를 활용하여 거리를 계산할 것임.
+			try {
+				// try catch를 사용해 오류가 발생하더라도 continue 하도록 처리
+				// 위도경도로 거리 계산
+				double k20_dist = Math.sqrt( Math.pow( Double.parseDouble(k20_field[3]) - k20_lat, 2)
+						+ Math.pow( Double.parseDouble(k20_field[2]) - k20_lng, 2));
+				// 만일 계산된 거리가 크다면, 먼 거리에 저장할 것임. 조건 부여
+				if (k20_dist > farPARK) {
+					// farPARK 거리 초기화
+					farPARK = k20_dist;
+					// farPARK 거리명 초기화
+					farPARK_location = k20_field[6];
+				} 
+				// 만일 계산된 거리가 작다면, 가까운 거리에 저장할 것임. 조건 부여
+				if (k20_dist < closePARK) {
+					// closePARK 거리 초기화
+					closePARK = k20_dist;
+					// closePARK 거리명 초기화
+					closePARK_location = k20_field[6];
+				}
+				// 공백이거나 String이어서 double계산이 안되는 오류가 발생하였으므로,
+				// 오류 발생시 continue
+			} catch (NumberFormatException e) {
+				continue;
+			}
+			  catch (Exception e) {
+			}
+		}
+		// 마찬가지로 작업종료시 close하는 습관 들이기
+		k20_br.close();
+		// 가장 가까운 주차장 출력
+		System.out.printf("가장 가까운 주차장 : %s , 현재지점과 거리 : %f\n",
+						   closePARK_location, closePARK);
+		// 가장 먼 주차장 출력
+		System.out.printf("가장   먼   주차장 : %s , 현재지점과 거리 : %f\n",
+						   farPARK_location, farPARK);
+
+	}
+
+}
+
+
+
+
+
+
+
+
+
+

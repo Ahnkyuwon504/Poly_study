@@ -1,0 +1,98 @@
+package study04121;
+
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+public class HW05 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		////////////////////////////////////////////////////////////////////////
+		// #5. �����ÿ���(������ ��� ��) 5�� / 2021. 04. 12. / 2125341020 �ȱԿ�
+		// ������ ��� 2
+		////////////////////////////////////////////////////////////////////////
+		DecimalFormat k20_df = new DecimalFormat("###,###,###,###,###"); // ��ǥ ������� import
+		Calendar k20_cal = Calendar.getInstance(); // ����ð� ������� calendar import
+		SimpleDateFormat k20_sdt = new SimpleDateFormat("YYYY/MM/dd HH:mm:ss"); // ����ð� ��� ����
+
+		String[] k20_name_Array = new String[] { "퓨어에어 비말차단용마스크(최고급형)",
+				// ������ ��ǰ�� �̸��� ����� Array
+				"슬라이드식명찰 (최고급 가로형)", "매직흡착 인테리어후크(알루미늄타입)" };
+		// Array�� ��ϵ�
+		String[] k20_code_Array = new String[] { "[1031615]", "[1008152]", "[1020800]" };
+		// ������ ��ǰ�� code ��ȣ�� ����� Array
+		int[] k20_price_Array = new int[] { 3000, 1000, 1800 };
+		// ������ ��ǰ�� ������ ����� Array
+		int[] k20_how_Many_Array = new int[] { 1, 1, 1 };
+		// ������ ��ǰ�� ������ ����� Array
+		int k20_iPrice = 0; // ��ǰ�� �Ѿ��� ����ϱ� ���� ���� ���� �� �ʱ�ȭ
+		for (int k20_i = 0; k20_i < 3; k20_i++) { // for���� ��ǰ�� ������ŭ �ǽõǰ�
+			k20_iPrice += k20_price_Array[k20_i]; // �� for������ �ݾ��� ������
+		} // for���� ����Ǹ�, ��ǰ�� �Ѿ��� �����.
+		double k20_tax = 0.1; // ���� 10%
+		int k20_real_iPrice = (int) (k20_iPrice / (k20_tax + 1)); // ������ �����ϴ� ���� ���� �� �ʱ�ȭ
+		int k20_tax_iPrice = (int) (k20_iPrice * k20_tax / (k20_tax + 1)) + 1; // ������ �����ϴ� ����
+
+		System.out.printf("\n\n             \"국민가게, 다이소\"\n"); // �ؽ�Ʈ ���.
+		// �� ���� �� �Ѱ������ν� ���� ������!
+		System.out.printf("(주)아성다이소_분당서현점\n"); // �ؽ�Ʈ ���
+		System.out.printf("전화:031-702-6016\n"); // �ؽ�Ʈ ���
+		System.out.printf("본사:서울 강남구 남부순환로 2748 (도곡동)\n"); // �ؽ�Ʈ ���
+		System.out.printf("대표:박정부,신호섭 213-61-52063\n"); // �ؽ�Ʈ ���
+		System.out.printf("매장:경기도 성남시 분당구 분당로53번길 11 서현\n동\n"); // �ؽ�Ʈ ���
+		System.out.printf("==============================================\n"); // �ٷ� ������ �� �ֵ���.
+		System.out.printf("         소비자중심경영(CCM) 인증기업\n"); // �ؽ�Ʈ ���
+		System.out.printf("       ISO 001 품질경영시스템 인증기업\n"); // �ؽ�Ʈ ���
+		System.out.printf("==============================================\n"); // �ٷ� ������ �� �ֵ���.
+		System.out.printf("         교환/환불 14일(03월12일)이내,\n"); // �ؽ�Ʈ ���
+		System.out.printf(" (전자)영수증, 카드 지참 후 구입매장에서 가능\n"); // �ؽ�Ʈ ���
+		System.out.printf("       포장/가격 택 훼손시 교환/환불 불가\n"); // �ؽ�Ʈ ���
+		System.out.printf("         체크카드 취소 시 최대 7일 소요\n"); // �ؽ�Ʈ ���
+		System.out.printf("==============================================\n"); // �ٷ� ����.
+		// �������� ������ ���� ����
+		System.out.printf("[POS 1058231]   %30s\n", k20_sdt.format(k20_cal.getTime()));
+		// ���� �ð� �������. ��� ������ �Ʊ� �������� k20_sdt �̿�
+		System.out.printf("==============================================\n"); // �ٷ� ����.
+		// �ݾ�, �ΰ���, �հ�ݾ� ��� ����
+		System.out.printf("%.14s   %s   %d   %s\n", k20_name_Array[0], k20_df.format(k20_price_Array[0]),
+				// %.14s�� ���� String�� ���̿� ������� 14ĭ��ŭ ��� ��µ�.
+				// ���� ��¹��� Ȯ���غ���, ���� �ڸ������� ��� name�� ��� ��µ��� Ȯ���� �� ����.
+				// �̸�, �ݾ� ���
+				k20_how_Many_Array[0], k20_df.format(k20_price_Array[0] * k20_how_Many_Array[0]));
+		// ����, �ݾ�*���� ���
+		System.out.printf("%s\n", k20_code_Array[0]); // 0��° �ڵ��ȣ ���.
+		System.out.printf("%.14s    %s   %d   %s\n", k20_name_Array[1], k20_df.format(k20_price_Array[1]),
+				// �����ϰ�, String�� ���̿� ������� ��� �����.
+				k20_how_Many_Array[1], k20_df.format(k20_price_Array[1] * k20_how_Many_Array[1]));
+		// �����ϰ�, ���� �� �ݾ�*���� ���
+		System.out.printf("%s\n", k20_code_Array[1]); // 1��° �ڵ��ȣ ���.
+		System.out.printf("%.14s   %s   %d   %s\n", k20_name_Array[2], k20_df.format(k20_price_Array[2]),
+				// String�� ���̿� ������� ��� �����.
+				k20_how_Many_Array[2], k20_df.format(k20_price_Array[2] * k20_how_Many_Array[2]));
+		// ���� �� �ݾ�*���� ���
+		System.out.printf("%s\n", k20_code_Array[2]); // 2��° �ڵ��ȣ ���.
+		System.out.printf("                과세합계%22s\n", k20_df.format(k20_real_iPrice));
+		// �����հ� : ���� ���.
+		System.out.printf("                  부가세%22s\n", k20_df.format(k20_tax_iPrice));
+		// �ΰ��� : ���� ���.
+		System.out.printf("----------------------------------------------\n"); // �ٷ� ��������.
+		System.out.printf("판매합계%37s\n", k20_df.format(k20_iPrice)); // �Ǹ��հ� : �Ѿ� ���.
+		System.out.printf("==============================================\n"); // �ٷ� ��������.
+		System.out.printf("신용카드%37s\n", k20_df.format(k20_iPrice)); // �ſ�ī�� : �����ϰ� �Ѿ� ���
+		System.out.printf("----------------------------------------------\n"); // �ٷ� ��������.
+		System.out.printf("우리카드%37s\n", "538720************");// ī���ȣ ���.
+		System.out.printf("승인번호 7798243(0)%17s %s\n", "승인금액", k20_df.format(k20_iPrice));
+		// �ؽ�Ʈ ��� �� �Ѿ� ���.
+		System.out.printf("==============================================\n"); // �ٷ� ��������.
+		System.out.printf("        %s 분당서현점\n", k20_sdt.format(k20_cal.getTime()));
+		// �ؽ�Ʈ �� ����ð� ���
+		System.out.printf("상품 및 기타 문의 : 1522-4400\n"); // �ؽ�Ʈ ���
+		System.out.printf("멤버십 및 샵다이소 관련 문의 : 1599-2211\n"); // �ؽ�Ʈ ���
+		System.out.printf("           1l1il1i1li1li1li1l1il1\n"); // ���ڵ� ���
+		System.out.printf("              211282061015821\n"); // �ؽ�Ʈ ���
+		System.out.printf("----------------------------------------------\n"); // ������ ������
+		System.out.printf(" * 다이소 멤버십 앱 또는 홈페이지에 접속하셔서\n"); // �ؽ�Ʈ ���
+		System.out.printf("   회원가입 후 다양한 혜택을 누려보세요! *\n"); // �ؽ�Ʈ ���
+	}
+}

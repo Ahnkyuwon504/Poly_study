@@ -1,0 +1,145 @@
+package amusement_DB;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import com.mysql.cj.protocol.Resultset;
+
+public class Sell_Analysis_Class {
+	private Connection con;
+	private Statement statement;
+	
+	public Sell_Analysis_Class() throws SQLException {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			con = DriverManager.getConnection(
+					"jdbc:mysql://127.0.0.1:3306/ahnkyuwon",
+					"root",
+					"dksrbdnjs");
+			statement = con.createStatement();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	public ArrayList<ArrayList<String>> get_Data_FromDB() {
+		ArrayList<ArrayList<String>> doubleArray_data = new ArrayList<ArrayList<String>>();
+		try {
+			ResultSet rset = statement.executeQuery("select * from report");
+			
+			while(rset.next()) {
+				ArrayList<String> singleArray_data = new ArrayList<String>();
+				singleArray_data.add(rset.getString(1));
+				singleArray_data.add(rset.getString(2));
+				singleArray_data.add(rset.getString(3));
+				singleArray_data.add(rset.getString(4));
+				singleArray_data.add(rset.getString(5));
+				singleArray_data.add(rset.getString(6));
+				doubleArray_data.add(singleArray_data);
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return doubleArray_data;
+	}
+	
+	public void getData() throws SQLException {
+		try {
+			ResultSet rset = statement.executeQuery("SELECT SUM(amount) FROM report where treat = '국가유공자'");
+					//+ "WHERE ticket_tipe = '주간권'");
+			
+			//System.out.println(rset.toString());
+			/*
+			ResultSet rset = stmt.executeQuery("select * from report");
+			System.out.println("권종   가격");
+			*/
+			while (rset.next()) {
+				System.out.println(rset.getInt(1));
+			}
+			rset.close();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		statement.close();
+		con.close();
+		
+		
+		
+	}
+	
+	public void getData_DayNight_Age() throws SQLException {
+		try {
+			
+			ResultSet rset = statement.executeQuery("SELECT SUM(amount) FROM report where ticket_type = '주간권' AND age = '경로'");
+			
+			while (rset.next()) {
+				System.out.println(rset.getInt(1));
+			}
+			rset.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		statement.close();
+		con.close();
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+}

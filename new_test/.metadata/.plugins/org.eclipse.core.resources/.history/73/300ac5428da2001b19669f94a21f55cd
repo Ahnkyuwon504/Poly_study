@@ -1,0 +1,123 @@
+package study04121;
+
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+public class HW06 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		////////////////////////////////////////////////////////////////////////
+		// #6. �����ÿ���(������ ��� ��) 6�� / 2021. 04. 12. / 2125341020 �ȱԿ�
+		// ������ ��� 3
+		////////////////////////////////////////////////////////////////////////
+		DecimalFormat k20_df = new DecimalFormat("###,###,###,###,###"); // ��ǥ�� ���������� import
+		Calendar k20_cal = Calendar.getInstance(); // Calendar import�Ͽ� ����ð� ���
+		SimpleDateFormat k20_sdt = new SimpleDateFormat("YYYY/MM/dd HH:mm:ss"); // ����ð� ��� ����
+		// ������ ��ǰ�� �̸��� �����ϴ� Array
+		String[] k20_name_Array = new String[] { "초코렛 바닐라치킨버거", "바 난나나나나솨나", "건포도 황도도도도", "김 망고와오렌지",
+	            "꽃보다남자 드라마", "홈런볼은 야구장에서", "*아이스커피한잔", "*꼬북칩누가먹어",
+	            "몽쉘은 다들먹어분명","스윙스스러운 과자", "빈츠는 과자의황제","동원 반김치삼겹살찌개",
+	            "마이 미는지역명","*왕꿈틀이안에킹왕","*미니쉘미니미니", "짱 셔요그치만더셔요",
+	            "초비초 초해피빅초빅","다이소 다이제다그런거지","카라멜죽장사과 펀치","비빔 면먹고아이셔",
+	               "유기농 초코송이랍니다","계란 말이도나쁘지않지","계란 말이계란말이","에엥에 지징지지",
+	               "주니어양말 커피다오", "파이리 꼬리야돈의꼬리","도라에 꼬리몽은도라에몽","리자몽 꼬리도있나",
+	               "토게피 알주세요알","*카카오라고해짜나요", "자 바는최고의학문"};
+		// ������ ��ǰ�� �������� ��µ� �� ������ ���߱� ����, ���ڸ� �ڸ��ų� ������ �߰����ش�.
+		for (int k20_i = 0; k20_i < k20_name_Array.length; k20_i++) { // ���ڰ� ����� array�� ũ�⸸ŭ for�� �ǽ�
+			if (k20_name_Array[k20_i].getBytes().length > 12) { // 7�� �̻��̸�
+				k20_name_Array[k20_i] = k20_name_Array[k20_i].substring(0, 6); // 6�ڱ����� �߶��ش�.
+			}
+
+			int k20_num = 12 - k20_name_Array[k20_i].getBytes().length; // 12���ݺ��� ������ ��ŭ�� ����Ʈ �� ����
+			for (int k20_j = 0; k20_j < k20_num; k20_j++) { // �� ���� num��ŭ
+				k20_name_Array[k20_i] = k20_name_Array[k20_i] + " "; // ������ �߰����ش�.
+			}
+		}
+		// ������ ��ǰ�� ������ǰ����, �鼼��ǰ���� boolean���� ǥ���Ͽ���.
+		boolean[] k20_tax_Array = new boolean[] { // Array ���� �� �� ��ǰ�� �������� ��� �־��־���.
+				true, true, true, true, true, true, false, false, true, true, true, true, true, false, false, true,
+				true, true, true, true, true, true, true, true, true, true, true, true, true, false, true };
+		// ������ ��ǰ�� ���� �ݾ��� �����ϴ� Array
+		int[] k20_price_Array = new int[] { // Array ���� �� �� ��ǰ�� �ݾ��� ��� �־��־���.
+				3000, 1000, 1000, 20000, 10000, 2500, 3000, 2200, 1800, 3800, 5200, 1800, 4000, 4400, 3800, 13200, 3800,
+				2700, 200, 300, 3400, 1800, 8800, 10000, 500, 4800, 800, 900, 1300, 200, 300 };
+		// ������ ��ǰ�� ���� ������ �����ϴ� Array
+		int[] k20_how_Many_Array = new int[] { // Array ���� �� �� ��ǰ�� ������ ��� �־��־���.
+				1, 1, 1, 2, 5, 6, 7, 8, 1, 5, 13, 14, 5, 6, 3, 1, 3, 5, 10, 6, 8, 8, 6, 5, 8, 10, 12, 14, 60, 80, 5 };
+		int[] k20_total_Price_Array = new int[k20_name_Array.length];
+		// ������ ��ǰ�� ���� * ������ ��ǰ�� �ݾ��� �ٸ� Array�� ���� �ο�
+		for (int i = 0; i < k20_total_Price_Array.length; i++) { // for���� ������ŭ �ǽõ�.
+			k20_total_Price_Array[i] = k20_price_Array[i] * k20_how_Many_Array[i]; // �� for������ Array���� ����.
+		}
+
+		int price_Of_Taxfree = 0; // �鼼��ǰ�� ���� ����
+		int price_Of_Tax = 0; // ������ǰ�� ���� ����
+		for (int i = 0; i < k20_name_Array.length; i++) { // for���� ��ǰ ��������ŭ �ǽõǸ�
+			if (k20_tax_Array[i] == false) { // ���� �鼼��ǰ�� ��,
+				price_Of_Taxfree += k20_price_Array[i] * k20_how_Many_Array[i]; // �鼼��ǰ�� �����Ѿ��� ������.
+			} else { // ���� ������ǰ�� ��,
+				price_Of_Tax += k20_price_Array[i] * k20_how_Many_Array[i]; // ������ǰ�� �����Ѿ��� ������.
+			}
+		}
+
+		double tax = 0.1; // ������ 10%
+		int real_Price_Of_Tax = (int) (price_Of_Tax / (tax + 1)); // ������ǰ�� ������ �����ϴ� ��������
+		int how_Much_Tax = (int) (price_Of_Tax * tax / (tax + 1)) + 1; // ������ǰ��
+		// �ΰ����� �����ϴ� ��������
+		int price_Of_Total = price_Of_Taxfree + price_Of_Tax; // ������ǰ�� �Ѿ�, �鼼��ǰ�� �Ѿ�
+		// ��� ������. �� ������ �Ѿ�
+		System.out.printf("\n\n                 �̸�Ʈ ������ (031)888-1234\n"); // �ؽ�Ʈ ���
+		// �� �տ� �� �� ��� �����ν� �б� ������.
+		System.out.printf("                 206-86-50913 ����\n"); // �ؽ�Ʈ ���
+		System.out.printf("                 ���� ������ ������� 552\n"); // �ؽ�Ʈ ���
+		System.out.printf("������ �������� ��ȯ/ȯ�� �Ұ�\n"); // �ؽ�Ʈ ���
+		System.out.printf("�����ǰ�� ����, 30�� �̳�(�ż� 7��)\n"); // �ؽ�Ʈ ���
+		System.out.printf("*�Ϻ� �귣����� ����(���� ����������)\n"); // �ؽ�Ʈ ���
+		System.out.printf("��ȯ/ȯ�� ���������� ����(����ī�� ����)\n\n"); // �ؽ�Ʈ ���
+		System.out.printf("[����]%s        POS:0011-9861\n", k20_sdt.format(k20_cal.getTime()));
+		// ����ð� ���. �������´� k20_sdt Ȱ��
+		System.out.printf("----------------------------------------------\n"); // �� ���. ���� ���۵�.
+		System.out.printf("  ��ǰ��                �� ��    ����     �ݾ�\n"); // ��ǰ��/�ܰ�/����/�ݾ�
+		for (int i = 0; i < k20_name_Array.length; i++) { // ��ǰ ��������ŭ for���� �ǽõ�.
+			System.out.printf("  %s         %6s%8s%9s\n", // �� ��ǰ�� ��¹������� ������ �����ֱ� �����̴�.
+					// ���� ��ǰ���� �� ��� 8ĭ���� �߶������ ���� .8�� ����.
+					// -14�� 14ĭ ���� ���� �� �տ������� ���� �����Ѵٴ� �ǹ�. ���̳ʽ� ������ ������ ����.
+					k20_name_Array[i], k20_df.format(k20_price_Array[i]), // ��ǰ��, ���� ���. ��ǥ�����.
+					k20_how_Many_Array[i], k20_df.format(k20_total_Price_Array[i])); // ����, �Ѿ� ���.
+			if (((i + 1) % 5) == 0) { // ��ǰ�� 5���� ���� ������ ������ ����Ͽ� ��������.
+				System.out.printf("----------------------------------------------\n"); // ���� ���
+			}
+		}
+		System.out.printf("\n"); // �� �ѱ�� �ٽ� ����
+		System.out.printf("%25s%16d\n", "�� ǰ�� ����", k20_name_Array.length); // �� ǰ�� ������ ��ǰ������
+		System.out.printf("%26s%16s\n", "(*)�� �� �� ǰ", k20_df.format(price_Of_Taxfree));
+		// �鼼��ǰ : �鼼��ǰ�� �Ѿ� �հ�
+		System.out.printf("%26s%16s\n", "�� �� �� ǰ", k20_df.format(real_Price_Of_Tax));
+		// ������ǰ : ������ǰ�� ���� �Ѿ� �հ�
+		System.out.printf("%27s%16s\n", "��   ��   ��", k20_df.format(how_Much_Tax));
+		// �ΰ��� : ������ǰ�� ���� �հ�
+		System.out.printf("%28s%16s\n", "��       ��", k20_df.format(price_Of_Total));
+		// �հ� : ������ �Ѿ�
+		System.out.printf("%s%29s\n", "�� �� �� �� �� ��", k20_df.format(price_Of_Total));
+		// �������ݾ� : �հ�� ����
+		System.out.printf("----------------------------------------------\n"); // �� ���
+		System.out.printf("0012 KEB �ϳ�   %30s\n", "541707**0484/35860658"); // �ؽ�Ʈ ���
+		System.out.printf("ī�����(IC) %23s%s\n", "�Ͻú� / ", k20_df.format(price_Of_Total)); // �ؽ�Ʈ ���
+		System.out.printf("----------------------------------------------\n"); // �� ���
+		System.out.printf("              [�ż�������Ʈ ����]\n"); // �ؽ�Ʈ ���
+		System.out.printf("ȫ*�� ������ ����Ʈ ��Ȳ�Դϴ�.\n"); // �ؽ�Ʈ ���
+		System.out.printf("��ȸ�߻�����Ʈ           9350**9995        164\n"); // �ؽ�Ʈ ���
+		System.out.printf("����(����)����Ʈ              5,637(    5,473)\n"); // �ؽ�Ʈ ���
+		System.out.printf("*�ż�������Ʈ ��ȿ�Ⱓ�� 2���Դϴ�.\n"); // �ؽ�Ʈ ���
+		System.out.printf("----------------------------------------------\n"); // �� ���
+		System.out.printf("        ���űݾױ��� ���������ð� �ڵ��ο�\n"); // �ؽ�Ʈ ���
+		System.out.printf("������ȣ : %34s\n", "34��****"); // �ؽ�Ʈ ���
+		System.out.printf("�����ð� : %35s\n", k20_sdt.format(k20_cal.getTime())); // ����ð� ���
+		System.out.printf("----------------------------------------------\n"); // �� ���
+		System.out.printf("ĳ��:084599 ��00 %30s", "1150\n"); // �ؽ�Ʈ ���
+		System.out.printf("    lliliililililillilililiililiilililili\n"); // ���ڵ� ���
+		System.out.printf("        20210303/00119861/00164980/31\n"); // ������ ������
+	}
+}
